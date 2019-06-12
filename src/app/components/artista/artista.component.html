@@ -1,0 +1,49 @@
+<app-loading *ngIf="loading" class="m-5"></app-loading>
+
+<div class="row animated fadeIn m-5" *ngIf="!loading">
+    <div class="col-2">
+        <img [src]="artista.images | noimage" class="img-thumbnail img-circle">
+    </div>
+    <div class="col">
+        <div>
+            <h5>{{ artista.name }}</h5>                
+        </div>
+        <div>
+            <p>
+                <a [href]="artista.external_urls.spotify">Ir a la página del artista</a>
+            </p> 
+        </div>
+        <div>
+            <iframe [src]=" artista.uri | followurlsegura" width="300" height="56" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowtransparency="true"></iframe>
+        </div>              
+    </div>
+    <div class="col-4 text-right">
+        <button routerLink="/search" class="btn btn-outline-danger">Volver</button>
+    </div>
+</div>
+
+<div class="row m-5">
+    <div class="col">
+        <table class="table table-striped">
+            <thead>
+                <th>Foto</th>
+                <th>Album</th>
+                <th>Fecha</th>
+                <th>Vista Previa</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let track of topTracks">
+                    <td>
+                        <img [src]="track.album.images | noimage" class="img-thumb">
+                    </td>
+                    <td>{{ track.album.name }}</td>
+                    <td>{{ track.album.release_date | date: 'dd/MM/yyyy' }}</td>
+                    <td>
+                        <!-- <audio [src]="track.preview_url" controls></audio> -->
+                        <iframe [src]="track.uri | domSeguro" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
